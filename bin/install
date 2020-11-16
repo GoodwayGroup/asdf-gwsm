@@ -18,7 +18,7 @@ error_exit() {
 
 install() {
   local -r install_type="$1"
-  local -r install_version="$2"
+  local -r install_version="v$2"
   local -r install_path="$3"
   local -r install_path_bin="${install_path}/bin"
   local -r platform="$(uname | tr '[:upper:]' '[:lower:]')_amd64"
