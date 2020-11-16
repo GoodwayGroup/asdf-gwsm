@@ -22,7 +22,8 @@ install() {
   local -r install_path="$3"
   local -r install_path_bin="${install_path}/bin"
   local -r platform="$(uname | tr '[:upper:]' '[:lower:]')_amd64"
-  local -r download_url="${DOWNLOAD_BASE_URL}/${install_version}/${BINARY_NAME}_${install_version}_${platform}.tar.gz"
+  local -r full_name="${BINARY_NAME}_${install_version}_${platform}"
+  local -r download_url="${DOWNLOAD_BASE_URL}/${install_version}/${full_name}.tar.gz"
   local -r download_path="${TMP_DOWNLOAD_DIR}/${BINARY_NAME}"
 
   [ "$install_type" != "version" ] && error_exit "Error: source installs are not supported"
@@ -34,12 +35,11 @@ install() {
 
     echo "Installing binary"
     mkdir -p "$install_path_bin"
-    mv "${download_path}/${BINARY_NAME}" "${install_path_bin}/${BINARY_NAME}"
+    mv "${full_name}/${BINARY_NAME}" "${install_path_bin}/${BINARY_NAME}"
     chmod +x "${install_path_bin}/${BINARY_NAME}"
   else
     error_exit "Error: ${BINARY_NAME} version ${install_version} not found"
   fi
 }
 
-#
 install "$ASDF_INSTALL_TYPE" "$ASDF_INSTALL_VERSION" "$ASDF_INSTALL_PATH"
